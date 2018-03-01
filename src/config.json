@@ -1,0 +1,35 @@
+{
+  "name": "Docker",
+  "type": "executer",
+  "exposeRoute": false,
+  "execProgram": "node",
+  "main": "app.js",
+  "version": "1.0.0",
+  "methods": [
+    {
+      "name": "EXECUTE",
+      "viewName": "execute command",
+      "params": [
+        {
+          "name": "COMMANDS",
+          "viewName": "Command",
+          "type": "string"
+        }
+      ],
+      "actionString": "COMMANDS"
+    },
+    {
+      "name": "EXECUTE_MULTIPLE_COMMANDS",
+      "viewName": "execute multiple commands",
+      "params": [
+        {
+          "name": "COMMANDS",
+          "viewName": "Commands",
+          "type": "text"
+        }
+      ],
+      "actionString": "COMMANDS"
+    }
+  ],
+  "imgUrl": "logo.png"
+}
