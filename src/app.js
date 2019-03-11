@@ -21,11 +21,22 @@ function build(action) {
     })
 }
 
-function pull(action) {
+function pull(action, settings) {
     return new Promise((resolve,reject) => {
-        let image = action.params.IMAGE;
+        let auth = {
+            username: action.params.USER,
+            password: settings.PASSWORD
+        };
+
+        let imageName = action.params.IMAGE;
         let tag = action.params.TAG;
-        docker.pull(image + ":" + tag).then(stream=>{
+        let registry = action.params.REGISTRY;
+        var options = auth.username + "/" + imageName + ":" + tag;
+        
+        if (registry)
+            options = registry + "/" + options;
+        
+        docker.pull(options, {authconfig: auth}).then(stream=>{
             docker.modem.followProgress(stream, (err, res) => {
             if (err) return reject(err);
             let cmdOutput = "";
@@ -42,13 +53,22 @@ function push(action, settings) {
     return new Promise((resolve, reject) => {
         let auth = {
             username: action.params.USER,
-            password: action.params.PASSWORD || settings.PASSWORD,
+            password: settings.PASSWORD
         };
-        let reg = action.params.REG;
+        
         let imageTag = action.params.IMAGETAG;
-        let image = docker.getImage(reg + "/" + imageTag);
-        image.tag({repo: reg + "/" + imageTag}, function () {
-            image.push({authconfig: auth, registry: reg + "/" + imageTag}).then(stream=>{
+        let imageRepo = action.params.IMAGE;
+        let repo = action.params.REPO;
+        let registry = action.params.REGISTRY;
+        var options = auth.username + "/" + repo + ":" + imageTag;
+
+        if (registry) 
+            var options = registry + "/" + options;
+
+        let image = docker.getImage(imageRepo + ":" + imageTag);
+        image.tag({repo: options}, function () {
+            let newImage = docker.getImage(options);
+            newImage.push({authconfig: auth, registry: options}).then(stream=>{
                 docker.modem.followProgress(stream, (err, res) => {
                     if (err) return reject(err);
                     let cmdOutput = "";
@@ -61,6 +81,7 @@ function push(action, settings) {
         })
     })
 }
+
 
 function tag(action) {
     return new Promise((resolve, reject) => {

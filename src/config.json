@@ -40,13 +40,28 @@
       "viewName": "Pull Image",
       "params": [
         {
+          "name": "USER",
+          "viewName": "Username",
+          "type": "string"
+        },
+        {
+          "name": "PASSWORD",
+          "viewName": "Password",
+          "type": "vault"
+        },
+        {
           "name": "IMAGE",
-          "viewName": "Image to pull",
+          "viewName": "Image",
           "type": "string"
         },
         {
           "name": "TAG",
           "viewName": "Image tag",
+          "type": "string"
+        },
+        {
+          "name": "REGISTRY",
+          "viewName": "Registry Url (optional)",
           "type": "string"
         }
       ]
@@ -57,7 +72,7 @@
       "params": [
         {
           "name": "USER",
-          "viewName": "Registry",
+          "viewName": "Username",
           "type": "string"
         },
         {
@@ -66,15 +81,26 @@
           "type": "vault"
         },
         {
-          "name": "REG",
-          "viewName": "User",
-          "type": "string"
-        },
-        {
           "name": "IMAGETAG",
           "viewName": "Tag",
           "type": "string"
+        },
+        {
+          "name": "IMAGE",
+          "viewName": "Image name",
+          "type": "string"
+        },
+        {
+          "name": "REPO",
+          "viewName": "Repo name",
+          "type": "string"
+        },
+        {
+          "name": "REGISTRY",
+          "viewName": "Registry Url (optional)",
+          "type": "string"
         }
+
       ]
     },
     {
