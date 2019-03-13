@@ -27,23 +27,16 @@ function pull(action, settings) {
             username: action.params.USER,
             password: settings.PASSWORD
         };
-
-        let imageName = action.params.IMAGE;
+        let image = action.params.IMAGE;
         let tag = action.params.TAG;
-        let registry = action.params.REGISTRY;
-        var options = auth.username + "/" + imageName + ":" + tag;
-        
-        if (registry)
-            options = registry + "/" + options;
-        
-        docker.pull(options, {authconfig: auth}).then(stream=>{
+        docker.pull(image + ":" + tag, {authconfig: auth}).then(stream=>{
             docker.modem.followProgress(stream, (err, res) => {
-            if (err) return reject(err);
-            let cmdOutput = "";
-            res.forEach(result=>{
-                cmdOutput += result.status;
+                if (err) return reject(err);
+                let cmdOutput = "";
+                res.forEach(result=>{
+                    cmdOutput += result.status;
                 });
-            resolve({output: cmdOutput})
+                resolve({output: cmdOutput})
             })
         })
     })
@@ -55,28 +48,25 @@ function push(action, settings) {
             username: action.params.USER,
             password: settings.PASSWORD
         };
-        
         let imageTag = action.params.IMAGETAG;
         let imageRepo = action.params.IMAGE;
-        let repo = action.params.REPO;
-        let registry = action.params.REGISTRY;
-        var options = auth.username + "/" + repo + ":" + imageTag;
-
-        if (registry) 
-            var options = registry + "/" + options;
-
+        let URL = action.params.URL;
         let image = docker.getImage(imageRepo + ":" + imageTag);
-        image.tag({repo: options}, function () {
-            let newImage = docker.getImage(options);
-            newImage.push({authconfig: auth, registry: options}).then(stream=>{
-                docker.modem.followProgress(stream, (err, res) => {
-                    if (err) return reject(err);
-                    let cmdOutput = "";
-                    res.forEach(result=>{
-                        cmdOutput += result.status + "\r\n";
-                    });
-                    resolve({output: cmdOutput})
-                })
+        if (URL) {
+            image.tag({repo: URL + "/" + imageRepo + ":" + imageTag});
+            var imageToPush = docker.getImage(URL + "/" + imageRepo + ":" + imageTag);
+        } else {
+            image.tag({repo: imageRepo + ":" + imageTag});
+            var imageToPush = docker.getImage(imageRepo + ":" + imageTag);
+        }
+        imageToPush.push({authconfig: auth, registry: imageRepo + ":" + imageTag}).then(stream=>{
+            docker.modem.followProgress(stream, (err, res) => {
+                if (err) return reject(err);
+                let cmdOutput = "";
+                res.forEach(result=>{
+                    cmdOutput += result.status + "\r\n";
+                });
+                resolve({output: cmdOutput})
             })
         })
     })

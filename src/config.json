@@ -51,17 +51,12 @@
         },
         {
           "name": "IMAGE",
-          "viewName": "Image",
+          "viewName": "Image name",
           "type": "string"
         },
         {
           "name": "TAG",
           "viewName": "Image tag",
-          "type": "string"
-        },
-        {
-          "name": "REGISTRY",
-          "viewName": "Registry Url (optional)",
           "type": "string"
         }
       ]
@@ -91,13 +86,8 @@
           "type": "string"
         },
         {
-          "name": "REPO",
-          "viewName": "Repo name",
-          "type": "string"
-        },
-        {
-          "name": "REGISTRY",
-          "viewName": "Registry Url (optional)",
+          "name": "URL",
+          "viewName": "Remote registry, otherwise dockerhub",
           "type": "string"
         }
 
