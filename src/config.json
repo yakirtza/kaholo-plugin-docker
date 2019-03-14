@@ -50,6 +50,11 @@
           "type": "vault"
         },
         {
+          "name": "URL",
+          "viewName": "Remote registry, otherwise dockerhub",
+          "type": "string"
+        },
+        {
           "name": "IMAGE",
           "viewName": "Image name",
           "type": "string"

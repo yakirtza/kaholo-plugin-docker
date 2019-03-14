@@ -29,7 +29,12 @@ function pull(action, settings) {
         };
         let image = action.params.IMAGE;
         let tag = action.params.TAG;
-        docker.pull(image + ":" + tag, {authconfig: auth}).then(stream=>{
+        if (URL) {
+            var options = URL + "/" + image + ":" + tag
+        } else {
+            var options = image + ":" + tag
+        }
+        docker.pull(options, {authconfig: auth}).then(stream=>{
             docker.modem.followProgress(stream, (err, res) => {
                 if (err) return reject(err);
                 let cmdOutput = "";
