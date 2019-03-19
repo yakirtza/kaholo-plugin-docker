@@ -1,35 +1,139 @@
 {
   "name": "Docker",
   "type": "executer",
-  "exposeRoute": false,
   "execProgram": "node",
   "main": "app.js",
-  "version": "1.2.0",
-  "methods": [
+  "imgUrl": "logo.png",
+  "version": "1.0.0",
+  "description": "Docker utility",
+  "settings":[
     {
-      "name": "EXECUTE",
-      "viewName": "execute command",
-      "params": [
-        {
-          "name": "COMMANDS",
-          "viewName": "Command",
-          "type": "string"
-        }
-      ],
-      "actionString": "COMMANDS"
+      "name":"USER",
+      "viewName":"User",
+      "type":"string"
     },
     {
-      "name": "EXECUTE_MULTIPLE_COMMANDS",
-      "viewName": "execute multiple commands",
-      "params": [
-        {
-          "name": "COMMANDS",
-          "viewName": "Commands",
-          "type": "text"
-        }
-      ],
-      "actionString": "COMMANDS"
+      "name":"PASSWORD",
+      "viewName":"Password",
+      "type":"vault"
     }
   ],
-  "imgUrl": "logo.png"
+  "methods": [
+    {
+      "name": "build",
+      "viewName": "Build docker image",
+      "params": [
+        {
+          "name": "PATH",
+          "viewName": "Path to Dockerfile",
+          "type": "string"
+        },
+        {
+          "name": "TAG",
+          "viewName": "Tag",
+          "type": "string"
+        }
+       ]
+    },
+    {
+      "name": "pull",
+      "viewName": "Pull Image",
+      "params": [
+        {
+          "name": "USER",
+          "viewName": "Username",
+          "type": "string"
+        },
+        {
+          "name": "PASSWORD",
+          "viewName": "Password",
+          "type": "vault"
+        },
+        {
+          "name": "URL",
+          "viewName": "Registry (optional)",
+          "type": "string"
+        },
+        {
+          "name": "IMAGE",
+          "viewName": "Image name",
+          "type": "string"
+        },
+        {
+          "name": "TAG",
+          "viewName": "Image tag",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "push",
+      "viewName": "Push to repo",
+      "params": [
+        {
+          "name": "USER",
+          "viewName": "Username",
+          "type": "string"
+        },
+        {
+          "name": "PASSWORD",
+          "viewName": "Password",
+          "type": "vault"
+        },
+        {
+          "name": "IMAGETAG",
+          "viewName": "Tag",
+          "type": "string"
+        },
+        {
+          "name": "IMAGE",
+          "viewName": "Image name",
+          "type": "string"
+        },
+        {
+          "name": "URL",
+          "viewName": "Registry (optional)",
+          "type": "string"
+        }
+
+      ]
+    },
+    {
+      "name": "tag",
+      "viewName": "Tag image",
+      "params": [
+        {
+          "name": "SOURCEIMAGE",
+          "viewName": "Source registry",
+          "type": "string"
+        },
+        {
+          "name": "SOURCEIMAGETAG",
+          "viewName": "Source image tag",
+          "type": "string"
+        },
+        {
+          "name": "NEWIMAGE",
+          "viewName": "New registry",
+          "type": "string"
+        },
+        {
+          "name": "NEWIMAGETAG",
+          "viewName": "New image tag",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "cmdExec",
+      "viewName": "Docker cmd",
+      "params": [
+        {
+          "name": "PARAMS",
+          "viewName": "Docker options",
+          "type": "string"
+        }
+      ]
+    }
+  ]
 }
