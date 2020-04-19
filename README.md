@@ -69,7 +69,10 @@ Based on [Docker Documentation](https://docs.docker.com/engine/reference/command
 
 **Description**
 
-A general command line to execute any Docker command
+A general command line to execute any Docker command. 
+
+-NOTE
+No need to add the docker command the string is docker + <your string>
 
 **Parameter**
 
