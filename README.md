@@ -32,6 +32,48 @@ Based on the [Docker Documentation](https://docs.docker.com/engine/reference/com
 3) Image name
 4) Image tag
 
+## Method: Push to repo
+
+**Description** 
+
+This method push an image to a repo such as docker hub
+Based on [Docker Documentation](https://docs.docker.com/engine/reference/commandline/push/)
+
+```docker push [OPTIONS] NAME[:TAG]```
+
+**Parameters
+
+1) Username & Password - can be given as Plugin Setting or in the pipeline.
+2) Image tag
+3) Image name
+4) Registry name (Optional) - if empty, assume docker hub as a default.
+
+
+## Method: Tag Image
+
+**Description** 
+
+Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+Based on [Docker Documentation](https://docs.docker.com/engine/reference/commandline/tag/)
+
+```docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]```
+
+**Parameters
+
+1) Source Registry 
+2) Source Image Tag
+3) New Registry
+4) New Image Tag
+
+## Method: Docker CMD
+
+**Description**
+
+A general command line to execute any Docker command
+
+**Parameter**
+
+Command line a single string
 
 
 
