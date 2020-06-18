@@ -87,7 +87,7 @@ function tag(action) {
 function cmdExec(action) {
     return new Promise((resolve,reject) => {
         let params = action.params.PARAMS;
-        exec("docker " + params, function (err, stdout, stderr) {
+        exec(params, function (err, stdout, stderr) {
             if (err || stderr)
                 return reject(err || stderr);
             resolve(stdout)
